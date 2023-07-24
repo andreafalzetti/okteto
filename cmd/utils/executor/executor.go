@@ -17,6 +17,7 @@ import (
 	"os"
 	"os/exec"
 
+	"github.com/kballard/go-shellquote"
 	"github.com/okteto/okteto/cmd/utils"
 	"github.com/okteto/okteto/pkg/constants"
 	oktetoLog "github.com/okteto/okteto/pkg/log"
@@ -77,7 +78,12 @@ func (e *Executor) Execute(cmdInfo model.DeployCommand, env []string) error {
 
 	cmd := exec.Command(e.shell, "-c", cmdInfo.Command)
 	if e.runWithoutBash {
-		cmd = exec.Command(cmdInfo.Command)
+		// when running without bash we need to split the command
+		args, err := shellquote.Split(cmdInfo.Command)
+		if err != nil {
+			return err
+		}
+		cmd = exec.Command(args[0], args[1:]...)
 	}
 	cmd.Env = append(os.Environ(), env...)
 
