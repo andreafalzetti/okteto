@@ -15,3 +15,11 @@ jobs:
           project-url: https://github.com/users/andreafalzetti/projects/1
           github-token: ${{ secrets.TEST_GH_TOKEN }}
           labeled: contributor
+  move-in-doing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: alex-page/github-project-automation-plus@v0.8.3
+        with:
+          project: name-of-project
+          column: Doing
+          repo-token: ${{ secrets.TEST_GH_TOKEN }}          
