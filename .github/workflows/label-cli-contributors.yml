@@ -12,6 +12,6 @@ jobs:
     steps:
       - uses: actions/add-to-project@v0.5.0
         with:
-          project-url: https://github.com/orgs/okteto/projects/1
+          project-url: https://github.com/users/andreafalzetti/projects/1
           github-token: ${{ secrets.GITHUB_TOKEN }}
           labeled: contributor
